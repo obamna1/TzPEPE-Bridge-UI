@@ -16,30 +16,41 @@ interface TransferFromProps {
 }
 
 export const TransferFrom = (props: TransferFromProps) => {
-  const [inputTokensAmount, setInputTokensAmount] = useState<string>('');
+  const [inputTokensAmount, setInputTokensAmount] = useState<string>(''); // Store the raw input
   const currentTokenDecimals = props.currentToken ? props.currentToken.decimals : 0;
   const currentTokenBalance =
     (props.currentToken && props.tokenBalances.get(props.currentToken)) || '0';
   const onAmountChanged = props.onAmountChanged;
 
-  // Handle input change directly without unnecessary adjustments
+  // Handle input change and adjust for Pepe token decimals
   const handleTokensAmountChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(
     e => {
       try {
         const rawValue = e.target.value;
-        // Ensure the value respects the token's decimals
-        const preparedValue = tokenUtils.truncateTokensAmountToDecimals(
-          rawValue,
-          currentTokenDecimals
-        );
+        const numericValue = parseFloat(rawValue);
 
-        setInputTokensAmount(preparedValue); // Update input for display
-        onAmountChanged(preparedValue); // Send raw value to parent
+        if (isNaN(numericValue)) {
+          setInputTokensAmount('');
+          onAmountChanged('');
+          return;
+        }
+
+        // Special case for Pepe token: multiply by 100 for the contract
+        const adjustedValue =
+          props.currentToken?.name === 'Pepe'
+            ? (numericValue * 100).toFixed(0) // Multiply by 100 and ensure integer format
+            : tokenUtils.truncateTokensAmountToDecimals(
+              rawValue,
+              currentTokenDecimals
+            );
+
+        setInputTokensAmount(rawValue); // Store raw user input for display
+        onAmountChanged(adjustedValue); // Send contract-ready value to parent
       } catch {
         //
       }
     },
-    [onAmountChanged, currentTokenDecimals]
+    [onAmountChanged, currentTokenDecimals, props.currentToken]
   );
 
   const handleInputBlur: React.FocusEventHandler<HTMLInputElement> = useCallback(
@@ -56,12 +67,12 @@ export const TransferFrom = (props: TransferFromProps) => {
     <TransferPure
       title="Transfer From"
       isTezos={props.isTezos}
-      balance={currentTokenBalance} // Use the raw balance directly
+      balance={currentTokenBalance} // Use raw balance directly
     >
       <>
         <input
           className="w-full py-2 pr-3 bg-transparent text-2xl focus:outline-none"
-          value={inputTokensAmount}
+          value={inputTokensAmount} // Always show the raw input
           step={10 ** -currentTokenDecimals}
           type="number"
           placeholder="0.00"

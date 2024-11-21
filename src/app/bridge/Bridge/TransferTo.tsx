@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 
 import { TransferPure } from './Transfer';
 import { TokenPure } from '@/components/Token';
@@ -15,20 +15,14 @@ export const TransferTo = (props: TransferToProps) => {
   const currentTokenBalance =
     (props.targetToken && props.tokenBalances.get(props.targetToken)) || '0';
 
-  // Adjust the amount for display based on the token's decimals
-  const adjustedAmount = useMemo(() => {
-    const numericAmount = parseFloat(props.amount);
-    if (isNaN(numericAmount)) return '0';
-
-    // Format the amount to the token's decimals
-    return numericAmount.toFixed(props.targetToken?.decimals || 0);
-  }, [props.amount, props.targetToken]);
+  // Display the raw user-entered amount directly
+  const rawAmount = props.amount;
 
   return (
     <TransferPure title="Transfer To" isTezos={props.isTezos} balance={currentTokenBalance}>
       <>
         <span className="py-2 text-2xl w-full overflow-ellipsis overflow-hidden whitespace-nowrap">
-          {adjustedAmount}
+          {rawAmount}
         </span>
         <div className="flex-none text-right">
           {props.targetToken ? (
