@@ -1,17 +1,17 @@
 const appUrl = process.env.NEXT_PUBLIC_APP_URL || (typeof window !== 'undefined' ? window.location.origin : '');
-const tezosNetworkName = 'oxfordnet';
+const tezosNetworkName = 'mainnet';
 
 export const config = {
   isTestnet: true,
   isMock: false,
   app: {
-    name: 'Tez2Eth',
+    name: 'PEPE BRIDGE',
     description: '',
     url: appUrl
   },
   bridge: {
-    smartRollupAddress: 'sr1T4XVcVtBRzYy52edVTdgup9Kip4Wrmn97',
-    smartRollupNodeBaseUrl: 'https://etherlink-rollup-oxford.dipdup.net'
+    smartRollupAddress: 'sr1Ghq66tYK9y3r8CC1Tf8i8m5nxh8nTvZEf',
+    smartRollupNodeBaseUrl: 'https://relay.mainnet.etherlink.com'
   },
   tezos: {
     network: {
@@ -22,16 +22,16 @@ export const config = {
   },
   etherlink: {
     network: {
-      name: 'Etherlink Testnet',
-      displayName: 'Etherlink Testnet',
-      chainId: 1337, // '0x539',
+      name: 'Etherlink Mainnet',
+      displayName: 'Etherlink Mainnet',
+      chainId: 42793, // '0x539',
       nativeCurrency: {
         name: 'XTZ',
         symbol: 'XTZ',
         decimals: 18
       },
-      rpcUrl: 'https://etherlink.dipdup.net',
-      blockExplorerUrl: 'https://blockscout.dipdup.net'
+      rpcUrl: 'https://node.mainnet.etherlink.com',
+      blockExplorerUrl: '	https://explorer.etherlink.com'
     },
   },
   providers: {

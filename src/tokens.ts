@@ -20,8 +20,8 @@ export const tokenPairs = [
       name: 'Tezos',
       ticker: 'XTZ',
       decimals: 18,
-      iconUrl: xtzLogo.src
-    }
+      iconUrl: xtzLogo.src,
+    },
   },
   {
     tezos: {
@@ -32,7 +32,7 @@ export const tokenPairs = [
       decimals: 0,
       iconUrl: ctezLogo.src,
       ticketerContractAddress: 'KT1RvSp4yDKUABqWmv3pKGE9fA6iCGy7bqGh',
-      ticketHelperContractAddress: 'KT1DHLWJorW9WB6ztkx1XcoaJKWXeTu9yoR1'
+      ticketHelperContractAddress: 'KT1DHLWJorW9WB6ztkx1XcoaJKWXeTu9yoR1',
     },
     etherlink: {
       type: 'erc20',
@@ -41,7 +41,7 @@ export const tokenPairs = [
       address: '0x87dcBf128677ba36E79D47dAf4eb4e51610e0150',
       decimals: 0,
       iconUrl: ctezLogo.src,
-    }
+    },
   },
   {
     tezos: {
@@ -53,7 +53,7 @@ export const tokenPairs = [
       decimals: 0,
       iconUrl: fxhashLogo.src,
       ticketerContractAddress: 'KT1VybveLaWhpQHKph28WcGwSy1ud22KSEan',
-      ticketHelperContractAddress: 'KT1DNtHLr9T9zksZjZvQwgtx5XJwrW9wzETB'
+      ticketHelperContractAddress: 'KT1DNtHLr9T9zksZjZvQwgtx5XJwrW9wzETB',
     },
     etherlink: {
       type: 'erc20',
@@ -61,10 +61,32 @@ export const tokenPairs = [
       ticker: 'FXHASH_42',
       address: '0xcB5d40c6B1bdf5Cd51b3801351b0A68D101a561b',
       decimals: 0,
-      iconUrl: fxhashLogo.src
-    }
-  }
+      iconUrl: fxhashLogo.src,
+    },
+  },
+  {
+    tezos: {
+      type: 'fa2',
+      name: 'Pepe',
+      ticker: 'PEPE',
+      address: 'KT1MZg99PxMDEENwB4Fi64xkqAVh5d1rv8Z9',
+      tokenId: '0',
+      decimals: 0,
+      iconUrl: 'public/icons/tokens/tzPEPE.png',
+      ticketerContractAddress: 'KT1UzfUMQDiEv7w6RQnnvt412qFXZmgjrLpd',
+      ticketHelperContractAddress: 'KT1JJsiwXgGVhomcUQsPQYdALkRRqakvK3XC',
+    },
+    etherlink: {
+      type: 'erc20',
+      name: 'TEZOS PEPE',
+      ticker: 'tzPEPE',
+      address: '0x9121B153bbCF8C23F20eE43b494F08760B91aD64',
+      decimals: 0,
+      iconUrl: 'public/icons/tokens/tzPEPE.png',
+    },
+  },
 ] as const;
+
 
 export const nativeTezosToken: Omit<typeof tokenPairs[0]['tezos'], 'ticketHelperContractAddress'> = tokenPairs[0].tezos;
 export const nativeEtherlinkToken: typeof tokenPairs[0]['etherlink'] = tokenPairs[0].etherlink;
