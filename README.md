@@ -19,5 +19,5 @@ I encourage all users to transfer in small batches at first as this is still in 
 4. Create ssl certificates, run
      - mkdir certificates
     - openssl req -nodes -new -x509 -keyout certificates/localhost.key -out certificates/localhost.crt -days 365 -subj "/CN=localhost"
-5. You are now ready to bridge. 
+5. You are now ready to bridge, run: yarn dev 
 
