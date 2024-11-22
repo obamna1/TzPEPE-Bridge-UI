@@ -10,7 +10,7 @@ This is a decimal error fix I am working on, but what you put in "To" is what wi
 I encourage all users to transfer in small batches at first as this is still in testing.
   -
 1. clone the repository
-2. Open i in he cli of your choice
+2. Open in the cli of your choice
 3. Install dependencies, run:
       - yarn add @baking-bad/tezos-etherlink-bridge-sdk
       - yarn add @taquito/taquito @taquito/beacon-wallet
