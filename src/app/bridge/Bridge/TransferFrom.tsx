@@ -12,7 +12,7 @@ interface TransferFromProps {
   tokenBalances: ReadonlyMap<Token, string>;
 
   onTokenSelected: (token: Token | null) => void;
-  onAmountChanged: (amount: string) => void;
+  onAmountChanged: (amount: string) => void; // Backend value
 }
 
 export const TransferFrom = (props: TransferFromProps) => {
@@ -20,47 +20,47 @@ export const TransferFrom = (props: TransferFromProps) => {
   const currentTokenDecimals = props.currentToken ? props.currentToken.decimals : 0;
   const currentTokenBalance =
     (props.currentToken && props.tokenBalances.get(props.currentToken)) || '0';
-  const onAmountChanged = props.onAmountChanged;
 
-  // Handle input change and adjust for Pepe token decimals
   const handleTokensAmountChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(
-    e => {
+    (e) => {
       try {
-        const rawValue = e.target.value;
-        const numericValue = parseFloat(rawValue);
+        const rawValue = e.target.value; // Get the raw value entered by the user
+        const numericValue = parseFloat(rawValue); // Parse the raw value as a number
 
         if (isNaN(numericValue)) {
-          setInputTokensAmount('');
-          onAmountChanged('');
+          setInputTokensAmount(''); // Reset the input if invalid
+          props.onAmountChanged(''); // Reset the parent value as well
           return;
         }
 
-        // Special case for Pepe token: multiply by 100 for the contract
+        // Check if the current token is "PEPE" and apply special logic
         const adjustedValue =
-          props.currentToken?.name === 'Pepe'
-            ? (numericValue * 100).toFixed(0) // Multiply by 100 and ensure integer format
+          props.currentToken?.name?.toLowerCase() === 'pepe'
+            ? (numericValue * 100).toFixed(0) // Multiply by 100 for backend logic
             : tokenUtils.truncateTokensAmountToDecimals(
               rawValue,
               currentTokenDecimals
-            );
+            ); // Default logic for other tokens
 
-        setInputTokensAmount(rawValue); // Store raw user input for display
-        onAmountChanged(adjustedValue); // Send contract-ready value to parent
-      } catch {
-        //
+        console.log('Raw Value:', rawValue, 'Adjusted Value:', adjustedValue); // Debug log
+
+        setInputTokensAmount(rawValue); // Always display the raw value to the user
+        props.onAmountChanged(adjustedValue); // Send the adjusted value to the backend/parent
+      } catch (err) {
+        console.error('Error handling token amount change:', err); // Log errors for debugging
       }
     },
-    [onAmountChanged, currentTokenDecimals, props.currentToken]
+    [props.onAmountChanged, currentTokenDecimals, props.currentToken]
   );
 
   const handleInputBlur: React.FocusEventHandler<HTMLInputElement> = useCallback(
-    e => {
+    (e) => {
       if (e.target.value === '0') {
         setInputTokensAmount('');
-        onAmountChanged('');
+        props.onAmountChanged('');
       }
     },
-    [onAmountChanged]
+    [props.onAmountChanged]
   );
 
   return (

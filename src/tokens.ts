@@ -4,6 +4,7 @@ import type { Token } from './models';
 import ctezLogo from '@/public/icons/tokens/ctez.png';
 import fxhashLogo from '@/public/icons/tokens/fxhash.png';
 import xtzLogo from '@/public/icons/tokens/xtz.png';
+import pepeLogo from '@/public/icons/tokens/tzPEPE.png';
 
 export const tokenPairs = [
   {
@@ -13,7 +14,7 @@ export const tokenPairs = [
       ticker: 'XTZ',
       decimals: 6,
       iconUrl: xtzLogo.src,
-      ticketHelperContractAddress: 'KT1DWVsu4Jtu2ficZ1qtNheGPunm5YVniegT',
+      ticketHelperContractAddress: 'KT1Wj8SUGmnEPFqyahHAcjcNQwe6YGhEXJb5',
     },
     etherlink: {
       type: 'native',
@@ -72,7 +73,7 @@ export const tokenPairs = [
       address: 'KT1MZg99PxMDEENwB4Fi64xkqAVh5d1rv8Z9',
       tokenId: '0',
       decimals: 0,
-      iconUrl: 'public/icons/tokens/tzPEPE.png',
+      iconUrl: pepeLogo.src,
       ticketerContractAddress: 'KT1UzfUMQDiEv7w6RQnnvt412qFXZmgjrLpd',
       ticketHelperContractAddress: 'KT1JJsiwXgGVhomcUQsPQYdALkRRqakvK3XC',
     },
@@ -82,7 +83,7 @@ export const tokenPairs = [
       ticker: 'tzPEPE',
       address: '0x9121B153bbCF8C23F20eE43b494F08760B91aD64',
       decimals: 0,
-      iconUrl: 'public/icons/tokens/tzPEPE.png',
+      iconUrl: pepeLogo.src,
     },
   },
 ] as const;
